@@ -2,74 +2,71 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Shubham Sharma</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gmail Login</title>
     <style>
+      /* Add some styling to make the login panel look like Gmail */
       body {
-        font-family: 'Open Sans', sans-serif;
-        background-color: #f2f2f2;
-      }
-      .header {
-        text-align: center;
-        padding: 80px 0;
-        background-color: #333;
-        color: #fff;
-      }
-      .header h1 {
-        font-size: 48px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-      }
-      .header p {
-        font-size: 24px;
-        font-weight: 400;
-        margin-top: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #F2F2F2;
       }
       .container {
-        max-width: 800px;
-        margin: auto;
-        padding: 80px 20px;
+        max-width: 400px;
+        margin: 100px auto;
         text-align: center;
+        padding: 40px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #BBBBBB;
       }
-      .container h2 {
+      h1 {
         font-size: 36px;
-        font-weight: 600;
         margin-bottom: 20px;
+        color: #444444;
       }
-      .container p {
+      form {
+        margin-top: 40px;
+      }
+      input[type="text"],
+      input[type="password"] {
+        padding: 10px;
         font-size: 18px;
-        font-weight: 400;
-        line-height: 1.5;
-        margin-bottom: 40px;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #BBBBBB;
+        box-sizing: border-box;
       }
-      .container a {
-        display: inline-block;
-        background-color: #333;
-        color: #fff;
-        padding: 20px 40px;
-        text-decoration: none;
+      input[type="submit"] {
+        background-color: #444444;
+        color: #FFFFFF;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
         font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 2px;
-        transition: all 0.2s ease-in-out;
-      }
-      .container a:hover {
-        background-color: #fff;
-        color: #333;
         cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #333333;
+      }
+      .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 20px;
+        display: none;
       }
     </style>
   </head>
   <body>
-    <div class="header">
-      <h1>Shubham Sharma</h1>
-      <p>Professional Website</p>
-    </div>
     <div class="container">
-      <h2>Welcome to my website</h2>
-      <p>This is the online home of Shubham Sharma, where you can find information about my skills, experience, and professional background. Thank you for visiting and feel free to get in touch if you have any questions or would like to work with me.</p>
-      <a href="#">Get in Touch</a>
+      <h1>Gmail Login</h1>
+      <form action="#" method="post">
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+      </form>
+      <p class="error">Incorrect username or password.</p>
     </div>
   </body>
 </html>
