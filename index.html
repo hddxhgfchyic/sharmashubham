@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Welcome to Shubham Sharma's Website</title>
     <style>
-      /* Add some styling to make the login panel look like Gmail */
+      /* Add some styling to make the website look professional */
       body {
         font-family: Arial, sans-serif;
         background-color: #F2F2F2;
       }
       .container {
-        max-width: 400px;
-        margin: 100px auto;
+        max-width: 600px;
+        margin: 0 auto;
         text-align: center;
         padding: 40px;
         background-color: #FFFFFF;
@@ -50,37 +50,16 @@
       input[type="submit"]:hover {
         background-color: #333333;
       }
-      .error {
-        color: red;
-        font-size: 14px;
-        margin-top: 20px;
-        display: none;
-      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Login</h1>
+      <h1>Shubham Sharma's Website</h1>
       <form action="#" method="post">
-        <input type="text" placeholder="Username" required id="username">
-        <input type="password" placeholder="Password" required id="password">
-        <input type="submit" value="Login" onclick="validateForm()">
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <input type="submit" value="Login">
       </form>
-      <p class="error" id="error">Incorrect username or password.</p>
     </div>
-
-    <script>
-      function validateForm() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const error = document.getElementById("error");
-
-        if (username === "abc@123" && password === "xyz@123") {
-          // Redirect to the dashboard page or show a success message
-} else {
-  error.style.display = "block";
-}
-    </script>
   </body>
 </html>
-
