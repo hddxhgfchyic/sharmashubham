@@ -2,64 +2,82 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to Shubham Sharma's Website</title>
+    <title>Shubham Sharma - Professional Website</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
     <style>
-      /* Add some styling to make the website look professional */
+      /* Add custom styles here */
       body {
-        font-family: Arial, sans-serif;
-        background-color: #F2F2F2;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
       }
-      .container {
-        max-width: 600px;
-        margin: 0 auto;
-        text-align: center;
-        padding: 40px;
-        background-color: #FFFFFF;
+
+      .login-form {
+        background-color: #fff;
+        border: 1px solid #ccc;
         border-radius: 10px;
-        box-shadow: 0 0 10px #BBBBBB;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        padding: 40px;
       }
-      h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
-        color: #444444;
-      }
-      form {
-        margin-top: 40px;
-      }
-      input[type="text"],
-      input[type="password"] {
-        padding: 10px;
-        font-size: 18px;
+
+      .form-control {
+        display: block;
         width: 100%;
+        padding: 10px;
+        font-size: 16px;
         margin-bottom: 20px;
+        border: 1px solid #ccc;
         border-radius: 5px;
-        border: 1px solid #BBBBBB;
-        box-sizing: border-box;
       }
-      input[type="submit"] {
-        background-color: #444444;
-        color: #FFFFFF;
+
+      .form-control:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #3f51b5;
+        border-color: #3f51b5;
+      }
+
+      .btn {
+        background-color: #3f51b5;
+        color: #fff;
         padding: 10px 20px;
-        border-radius: 5px;
+        font-size: 16px;
         border: none;
-        font-size: 18px;
+        border-radius: 5px;
         cursor: pointer;
+        margin-top: 20px;
+        width: 100%;
       }
-      input[type="submit"]:hover {
-        background-color: #333333;
+
+      .btn:hover {
+        background-color: #333;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Shubham Sharma's Website</h1>
-      <form action="#" method="post">
-        <input type="text" placeholder="Username" required>
-        <input type="password" placeholder="Password" required>
-        <input type="submit" value="Login">
-      </form>
-    </div>
+    <form class="login-form">
+      <h2>Login</h2>
+      <input type="email" class="form-control" id="username" placeholder="Email" required>
+      <input type="password" class="form-control" id="password" placeholder="Password" required>
+      <button class="btn" onclick="return validate()">Sign in</button>
+    </form>
   </body>
+  <script>
+    function validate() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      if (username === "abc@123" && password === "xyz@123") {
+        // Redirect to the homepage if the username and password match
+        window.location.href = "homepage.html";
+        return false;
+      } else {
+        alert("Incorrect username or password. Please try again.");
+        return false;
+      }
+    }
+  </script>
 </html>
