@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MKV Video Player</title>
+</head>
+<body>
+  <input type="text" id="videoLinkInput" value="https://www.example.com/video.mkv">
+  <button id="changeLinkBtn">Change Link</button>
+  <br><br>
+  <video id="videoPlayer" controls>
+    <source id="videoSource" src="https://www.example.com/video.mkv">
+  </video>
+  <script>
+    // Get the video link input and change link button elements
+    var videoLinkInput = document.getElementById('videoLinkInput');
+    var changeLinkBtn = document.getElementById('changeLinkBtn');
+    
+    // Get the video player and source elements
+    var player = document.getElementById('videoPlayer');
+    var videoSource = document.getElementById('videoSource');
+    
+    // Event listener for change link button
+    changeLinkBtn.addEventListener("click", function() {
+      videoSource.src = videoLinkInput.value;
+      player.load();
+    });
+    
+    // Keyboard event listener to move forward 5 seconds
+    document.addEventListener("keydown", function(event) {
+      if (event.code === "ArrowRight") {
+        player.currentTime += 5;
+      }
+    });
+    
+    // Keyboard event listener to move backward 5 seconds
+    document.addEventListener("keydown", function(event) {
+      if (event.code === "ArrowLeft") {
+        player.currentTime -= 5;
+      }
+    });
+  </script>
+</body>
+</html>
