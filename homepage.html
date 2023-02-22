@@ -1,52 +1,224 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>My Drawing App</title>
     <meta charset="UTF-8">
-  </head>
-  <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <input type="range" id="markerThickness" min="1" max="20" value="5">
-    <label for="markerThickness">Marker Thickness</label>
-    <button onclick="saveDrawing()">Save Drawing</button>
-    
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 2em;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #eee;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        /* Canvas and toolbar styles */
+        #canvas-wrapper {
+            margin: 20px auto;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        #canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        #toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #eee;
+            border-top: 1px solid #ccc;
+        }
+        
+        #tools {
+            display: flex;
+            align-items: center;
+        }
+        
+        #colors {
+            display: flex;
+            align-items: center;
+        }
+        
+        .tool {
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        
+        .tool:hover {
+            border-color: #333;
+        }
+        
+        .selected {
+            border-color: #333;
+        }
+        
+        .color {
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .color:hover {
+            border: 2px solid #333;
+        }
+        
+        #markerThickness {
+            margin-left: 10px;
+        }
+        
+        #clear {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        
+        #clear:hover {
+            border-color: #333;
+        }
+        
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            #canvas-wrapper {
+                margin: 10px;
+            }
+            
+            #toolbar {
+                flex-wrap: wrap;
+            }
+            
+            #tools, #colors {
+                margin-top: 10px;
+            }
+            
+            .tool, .color {
+                width: 20px;
+                height: 20px;
+            }
+            
+            #markerThickness {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>My Drawing App</h1>
+    <div id="canvas-wrapper">
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <div id="toolbar">
+            <div id="tools">
+                <div class="tool" id="pencil" title="Pencil"></div>
+                <div class="tool" id="eraser" title="Eraser"></div>
+                <input type="range" id="markerThickness" min="1" max="50" value="10">
+          </div>
+                      <div id="colors">
+                <div class="color" id="black"></div>
+                <div class="color" id="red"></div>
+                <div class="color" id="green"></div>
+                <div class="color" id="blue"></div>
+            </div>
+            <button id="clear">Clear</button>
+        </div>
+    </div>
     <script>
-      const canvas = document.getElementById("canvas");
-      const context = canvas.getContext("2d");
-      const markerThickness = document.getElementById("markerThickness");
-      let isDrawing = false;
-
-      canvas.addEventListener("mousedown", startDrawing);
-      canvas.addEventListener("mousemove", draw);
-      canvas.addEventListener("mouseup", stopDrawing);
-
-      function startDrawing(event) {
-        isDrawing = true;
-        draw(event);
-      }
-
-      function draw(event) {
-        if (!isDrawing) return;
-        context.lineWidth = markerThickness.value;
-        context.lineCap = "round";
-        context.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-        context.stroke();
-        context.beginPath();
-        context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-      }
-
-      function stopDrawing() {
-        isDrawing = false;
-        context.beginPath();
-      }
-
-      function saveDrawing() {
-        const image = canvas.toDataURL();
-        const link = document.createElement("a");
-        link.href = image;
-        link.download = "my_drawing.png";
-        link.click();
-      }
+        // Canvas and context variables
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Default settings
+        let currentTool = 'pencil';
+        let currentColor = 'black';
+        let currentThickness = 10;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // Event listeners
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        document.getElementById('pencil').addEventListener('click', () => {
+            currentTool = 'pencil';
+        });
+        
+        document.getElementById('eraser').addEventListener('click', () => {
+            currentTool = 'eraser';
+        });
+        
+        document.getElementById('markerThickness').addEventListener('change', (event) => {
+            currentThickness = event.target.value;
+        });
+        
+        document.getElementById('black').addEventListener('click', () => {
+            currentColor = 'black';
+        });
+        
+        document.getElementById('red').addEventListener('click', () => {
+            currentColor = 'red';
+        });
+        
+        document.getElementById('green').addEventListener('click', () => {
+            currentColor = 'green';
+        });
+        
+        document.getElementById('blue').addEventListener('click', () => {
+            currentColor = 'blue';
+        });
+        
+        document.getElementById('clear').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+        
+        // Drawing functions
+        function startDrawing(event) {
+            isDrawing = true;
+            lastX = event.offsetX;
+            lastY = event.offsetY;
+        }
+        
+        function draw(event) {
+            if (!isDrawing) return;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(event.offsetX, event.offsetY);
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = currentThickness;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            lastX = event.offsetX;
+            lastY = event.offsetY;
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
     </script>
-  </body>
+</body>
 </html>
+
